@@ -1,0 +1,23 @@
+<h2 highlight="red">Welcome, {{name}}</h2>
+<p>You are at {{location}} on {{today}}</p>
+<ul>
+    <li *ngFor="let c of colors">{{c}}</li>
+</ul>
+<button (click)="changeClass()" class='btn' [ngClass]="{ 'btn-success' : myClass === 'strike',  'btn-danger': myClass=== '' }">{{'toggle strike' | titlecase}}</button>
+{{myClass}}
+<table class="table table-striped table-bordered table-condensed">
+    <tr>
+        <th>Sr.</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    <tr *ngFor="let p of products; let sr=index;">
+        <td>{{sr}}</td>
+        <td [ngClass]="myClass">{{p.id}}</td>
+        <td>{{p.name | uppercase}}<span *ngIf="p.price>=20000" class="badge">new</span></td>
+        <td>{{p.price | currency:'INR':true}}</td>
+    </tr>
+</table>
+
+<app-product-table [products]="products"></app-product-table>

@@ -16,8 +16,32 @@ export class ProductService {
         return this.products;
     }
 
+    public getProduct(id: number): Product {
+        let product: Product;
+        this.products.forEach((p) => {
+            if (p.id === id) {
+                product = p;
+            }
+        });
+
+        return product;
+    }
+
     public addProduct(product: Product): void {
         this.products.push(product);
+    }
+
+    public editProduct(product: Product): void {
+        console.log('product', product);
+        this.products = this.products.map((p) => {
+            if (p.id === product.id) {
+                console.log('found');
+                return product;
+            }
+            return p;
+        });
+
+        console.log('new products', this.products);
     }
 
 }

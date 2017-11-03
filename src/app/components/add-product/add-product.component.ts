@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Category } from '../../models/category';
 import { Product } from '../../models/products';
 import { ProductService } from '../../services/product.service';
+import { CategoryService } from '../../services/category.service';
 
 import {} from '../../validators/';
 
@@ -13,22 +14,21 @@ import {} from '../../validators/';
 })
 export class AddProductComponent implements OnInit {
 
-    private categories: Category[] = [
-        { id: 1, name: 'Electronics'},
-        { id: 2, name: 'Footwear'},
-        { id: 3, name: 'Books'}
-    ];
+    private categories: Category[];
 
     private product: Product;
-    constructor(private productSvc: ProductService) {
-        this.product = new Product();
+    constructor(private productSvc: ProductService, private categorySvc: CategoryService) {
+
     }
 
   ngOnInit() {
+      this.product = new Product();
+      this.categories = this.categorySvc.getCategories();
   }
 
   save(addForm) {
-      console.log('addForm:', this.product);
+      this.productSvc.addProduct(this.product);
+      console.log('all products:', this.productSvc.getProducts());
   }
 
 

@@ -11,12 +11,14 @@
         <th>Id</th>
         <th>Name</th>
         <th>Price</th>
+        <th>Actions</th>
     </tr>
     <tr *ngFor="let p of products; let sr=index;">
         <td>{{sr}}</td>
         <td [ngClass]="myClass">{{p.id}}</td>
         <td>{{p.name | uppercase}}<span *ngIf="p.price>=20000" class="badge">new</span></td>
         <td>{{p.price | currency:'INR':true}}</td>
+        <td><a [routerLink]="['/edit', p.id]">Edit</a></td>
     </tr>
 </table>
 

@@ -9,12 +9,16 @@ import { AddProductComponent } from '../components/add-product/add-product.compo
 import { EditProductComponent } from '../components/edit-product/edit-product.component';
 import { ProductResolver } from '../resolvers/product.resolver';
 import { CategoryResolver } from '../resolvers/category.resolver';
+import { UnsavedComponentGuard } from '../guards/unsaved.guard';
 
 const routes: Route[] = [
     { path: 'home', component: HomeComponent },
     { path: 'contact', component: ContactComponent },
     { path: 'add', component: AddProductComponent, resolve: { categories: CategoryResolver} },
-    { path: 'edit/:id', component: EditProductComponent, resolve: { product: ProductResolver, categories: CategoryResolver } },
+    { path: 'edit/:id',
+      component: EditProductComponent,
+      resolve: { product: ProductResolver, categories: CategoryResolver },
+      canDeactivate: [UnsavedComponentGuard] },
     { path: '**', component: PageNotFoundComponent }
 ];
 

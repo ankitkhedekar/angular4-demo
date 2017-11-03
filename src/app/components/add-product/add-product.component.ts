@@ -7,13 +7,14 @@ import { CategoryService } from '../../services/category.service';
 
 import {} from '../../validators/';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UnsavedComponentBase } from '../../guards/unsaved.guard';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css']
 })
-export class AddProductComponent implements OnInit {
+export class AddProductComponent implements OnInit, UnsavedComponentBase {
 
     private categories: Category[];
 

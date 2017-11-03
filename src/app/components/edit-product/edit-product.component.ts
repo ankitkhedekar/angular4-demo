@@ -6,13 +6,14 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/products';
+import { UnsavedComponentBase } from '../../guards/unsaved.guard';
 
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.css']
 })
-export class EditProductComponent implements OnInit {
+export class EditProductComponent implements OnInit, UnsavedComponentBase {
 
     private id: number;
     private categories: Category[];

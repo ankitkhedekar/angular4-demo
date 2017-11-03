@@ -21,6 +21,7 @@ import { MaxValidator } from './validators/max-validator';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { ProductResolver } from './resolvers/product.resolver';
 import { CategoryResolver } from './resolvers/category.resolver';
+import { UnsavedComponentGuard } from './guards/unsaved.guard';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { CategoryResolver } from './resolvers/category.resolver';
       ProductService,
       CategoryService,
       ProductResolver,
-      CategoryResolver
+      CategoryResolver,
+      UnsavedComponentGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/products';
+import { ProductService } from '../../services/product.service';
+
 
 @Component({
   selector: 'app-home',
@@ -19,15 +21,19 @@ export class HomeComponent implements OnInit {
     ];
     private myClass = 'strike';
 
-    constructor() {
+    constructor(private productSvc: ProductService) {
        this.name = 'Demo User';
        this.location = 'Mumbai';
        this.today = new Date();
     }
 
     ngOnInit() {
-
+        this.productSvc.getProducts().subscribe(
+            data => this.products = data,
+            error => console.log('error', error)
+        );
     }
+
 
     changeClass() {
         if (this.myClass === '') {

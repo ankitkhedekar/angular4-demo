@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { CategoryService } from '../../services/category.service';
 
 import {} from '../../validators/';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -17,18 +18,21 @@ export class AddProductComponent implements OnInit {
     private categories: Category[];
 
     private product: Product;
-    constructor(private productSvc: ProductService, private categorySvc: CategoryService) {
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private productSvc: ProductService,
+        private categorySvc: CategoryService) {
 
     }
 
   ngOnInit() {
       this.product = new Product();
-      this.categories = this.categorySvc.getCategories();
+      this.categories = this.route.snapshot.data['categories'];
   }
 
   save(addForm) {
       this.productSvc.addProduct(this.product);
-      console.log('all products:', this.productSvc.getProducts());
   }
 
 

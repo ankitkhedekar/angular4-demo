@@ -7,12 +7,14 @@ import { PageNotFoundComponent } from '../components/page-not-found/page-not-fou
 import { ContactComponent } from '../components/contact/contact.component';
 import { AddProductComponent } from '../components/add-product/add-product.component';
 import { EditProductComponent } from '../components/edit-product/edit-product.component';
+import { ProductResolver } from '../resolvers/product.resolver';
+import { CategoryResolver } from '../resolvers/category.resolver';
 
 const routes: Route[] = [
     { path: 'home', component: HomeComponent },
     { path: 'contact', component: ContactComponent },
-    { path: 'add', component: AddProductComponent },
-    { path: 'edit/:id', component: EditProductComponent },
+    { path: 'add', component: AddProductComponent, resolve: { categories: CategoryResolver} },
+    { path: 'edit/:id', component: EditProductComponent, resolve: { product: ProductResolver, categories: CategoryResolver } },
     { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -31,8 +31,8 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit() {
       this.id = parseInt(this.route.snapshot.params.id, 10);
-      this.categories = this.categorySvc.getCategories();
-      this.product = this.productSvc.getProduct(this.id);
+      this.categories = this.route.snapshot.data['categories'];
+      this.product = this.route.snapshot.data['product'];
 
       const nameControl = new FormControl(this.product.name,
           Validators.compose([ Validators.required, Validators.minLength(3)])

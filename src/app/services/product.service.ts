@@ -1,30 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/products';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import { Http, Response } from '@angular/http';
 
 @Injectable()
 export class ProductService {
     private products: Product[];
-    constructor() {
+    private readonly API_URL = 'http://bst-products-api.azurewebsites.net/api/products';
+    constructor(private http: Http) {
         this.products = [
-          { id: 101, name: 'Product 1', price: 10000, categoryId: 1 },
-          { id: 102, name: 'Product 2', price: 20000,  categoryId: 2 },
-          { id: 103, name: 'Product 3', price: 30000,  categoryId: 1 }
         ];
     }
 
-    public getProducts(): Product[] {
-        return this.products;
+
+    public getProducts(): Observable<Product[]> {
+        // return Observable.of(this.products);
+        return this.http.get(this.API_URL)
+        .map((res: Response) => {
+            const data = res.json();
+            this.products = data;
+            return data;
+        })
+        // .then(() => console.log('here'))
+        .catch(err => Observable.throw(err));
     }
 
-    public getProduct(id: number): Product {
-        let product: Product;
-        this.products.forEach((p) => {
-            if (p.id === id) {
-                product = p;
-            }
-        });
-
-        return product;
+    public getProduct(id: number): Observable<Product> {
+        return this.http.get(this.API_URL + '/' + id)
+        .map((res: Response) => res.json())
+        // .then(() => console.log('here'))
+        .catch(err => Observable.throw(err));
     }
 
     public addProduct(product: Product): void {

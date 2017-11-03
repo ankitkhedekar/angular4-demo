@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -18,6 +19,8 @@ import { CategoryService } from './services/category.service';
 import { MinValidator } from './validators/min-validator';
 import { MaxValidator } from './validators/max-validator';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { ProductResolver } from './resolvers/product.resolver';
+import { CategoryResolver } from './resolvers/category.resolver';
 
 @NgModule({
   declarations: [
@@ -37,11 +40,14 @@ import { EditProductComponent } from './components/edit-product/edit-product.com
     BrowserModule,
     InvertoryRouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [
       ProductService,
-      CategoryService
+      CategoryService,
+      ProductResolver,
+      CategoryResolver
   ],
   bootstrap: [AppComponent]
 })

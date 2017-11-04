@@ -10,6 +10,7 @@ import { EditProductComponent } from '../components/edit-product/edit-product.co
 import { ProductResolver } from '../resolvers/product.resolver';
 import { CategoryResolver } from '../resolvers/category.resolver';
 import { UnsavedComponentGuard } from '../guards/unsaved.guard';
+import { SearchComponent } from '../components/search/search.component';
 
 const routes: Route[] = [
     { path: 'home', component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Route[] = [
       component: EditProductComponent,
       resolve: { product: ProductResolver, categories: CategoryResolver },
       canDeactivate: [UnsavedComponentGuard] },
+    { path: 'search', component: SearchComponent },
     { path: '**', component: PageNotFoundComponent }
 ];
 

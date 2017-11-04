@@ -11,8 +11,10 @@ import { ProductResolver } from '../resolvers/product.resolver';
 import { CategoryResolver } from '../resolvers/category.resolver';
 import { UnsavedComponentGuard } from '../guards/unsaved.guard';
 import { SearchComponent } from '../components/search/search.component';
+import { LoginComponent } from '../components/login/login.component';
 
 const routes: Route[] = [
+    { path: '', component: LoginComponent },
     { path: 'home', component: HomeComponent },
     { path: 'contact', component: ContactComponent },
     { path: 'add', component: AddProductComponent, resolve: { categories: CategoryResolver} },
@@ -21,6 +23,7 @@ const routes: Route[] = [
       resolve: { product: ProductResolver, categories: CategoryResolver },
       canDeactivate: [UnsavedComponentGuard] },
     { path: 'search', component: SearchComponent },
+    { path: 'category', loadChildren: 'app/category-module/category.module#CategoryModule' },
     { path: '**', component: PageNotFoundComponent }
 ];
 

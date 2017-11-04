@@ -6,27 +6,37 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ProductService {
     private products: Product[];
     private readonly API_URL = 'http://bst-products-api.azurewebsites.net/api/products';
-    constructor(private http: Http) {
+    constructor(private http: Http, private httpClient: HttpClient) {
         this.products = [
         ];
     }
 
 
     public getProducts(): Observable<Product[]> {
-        // return Observable.of(this.products);
-        return this.http.get(this.API_URL)
-        .map((res: Response) => {
-            const data = res.json();
-            this.products = data;
-            return data;
-        })
-        // .then(() => console.log('here'))
-        .catch(err => Observable.throw(err));
+        // return this.http.get(this.API_URL)
+        // .map((res: Response) => {
+        //     const data = res.json();
+        //     this.products = data;
+        //     return data;
+        // })
+        // .catch(err => Observable.throw(err));
+        const httpHeaders = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        });
+
+        const options = {
+            headers: httpHeaders
+        };
+
+        return this.httpClient.get<Product[]>(this.API_URL, options);
     }
 
     public getProduct(id: number): Observable<Product> {

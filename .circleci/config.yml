@@ -33,15 +33,49 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       
-      - run: echo $CIRCLE_PULL_REQUEST
+      # - run: echo $CIRCLE_PULL_REQUEST
         
       # run build!
-      - run: ./node_modules/.bin/tslint .
-      - run: ./node_modules/.bin/ng build
+      - run: ./node_modules/.bin/tslint --project .
+      
+  
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:7.10
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      
+          - run: ./node_modules/.bin/ng build
       
  
 workflows:
   version: 2
   lint-and-build:
     jobs:
-      - lint-and-build
+      - lint
+      - build:
+          requires:
+            - lint

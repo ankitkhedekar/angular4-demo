@@ -34,11 +34,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       
       - run: echo $CIRCLE_PULL_REQUEST
-
-      - run: echo $GITHUB_TOKEN
         
       # run build!
-      - run: ./node_modules/.bin/tslint
+      - run: ./node_modules/.bin/tslint 'src/**/*.ts?(x)'
  
 workflows:
   version: 2

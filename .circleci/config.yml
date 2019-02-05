@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  lint-and-build:
+  lint:
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
@@ -68,7 +68,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       
-          - run: ./node_modules/.bin/ng build
+      - run: ./node_modules/.bin/ng build
       
  
 workflows:

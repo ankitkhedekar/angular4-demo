@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  lint:
+  lint-and-build:
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
@@ -37,20 +37,11 @@ jobs:
         
       # run build!
       - run: ./node_modules/.bin/tslint .
-  build:
-    docker:
-      - image: circleci/node:7.10
-
-    working_directory: ~/repo
-
-    steps:
       - run: ./node_modules/.bin/ng build
+      
  
 workflows:
   version: 2
   lint-and-build:
     jobs:
-      - lint
-      - build:
-          requires:
-            - lint
+      - lint-and-build
